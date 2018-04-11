@@ -1,0 +1,26 @@
+--- Isra_bg2/dialogue/rh#quest.d	2013-09-24 22:07:47.774378000 -0400
++++ Fixpack/Isra_bg2/dialogue/rh#quest.d	2016-11-26 02:07:16.427455100 -0500
+@@ -266,12 +266,13 @@
+ 
+ CHAIN IF WEIGHT #-1 ~InParty("rh#Isra2") Global("rh#QarTalks","GLOBAL",1)~ THEN SCQAR q11
+ @110 /* Lady Isra, I had thought you above boorish gloating. Has your father's common blood finally run true in the end? */
++DO ~SetGlobal("rh#QarTalks","GLOBAL",2)~ /* BWP Fix - http://www.shsforums.net/topic/58514-a-review-of-isra-21-was-posted-on-beamdog-forums/?p=585838 */
+ == RH#ISRJ @111 /* My lord, there is no cause for hostility. Alia is convinced that your cousin is innocent, and Rana... where has my sister gone? */
+ == SCQAR @112 /* She is currently staying with her Crytrapper relatives instead, and good riddance, I say. This house has been too crowded as it is. */
+ == RH#ISRJ @113 /* I see. If you know anything that might clear Quentin's name-- */
+ == SCQAR @114 /* We have already cooperated with the authorities as much as is required by law. There is nothing more that needs to be said. */
+ == SCLJYSS @115 /* Qar, if they can help, surely there is no reason not to let them? */
+-DO ~SetGlobal("rh#QarTalks","GLOBAL",2)~
++/* DO ~SetGlobal("rh#QarTalks","GLOBAL",2)~ BWP Fix */
+ END
+ 	++ @116 /* Any financial information would be useful. */ EXTERN RH#ISRJ q11.1
+ 	++ @117 /* A sensible suggestion if ever I've heard one. */ EXTERN RH#ISRJ q11.2
+@@ -391,7 +392,7 @@
+ EXIT
+ 
+ CHAIN IF ~GlobalGT("rh#AlimTalks","GLOBAL",1) !PartyHasItem("rh#ale")~ THEN RH#ALIM q13.3
+-@150 /* Are ye deaf, <PRO_BOYGIRL>? I've got nothing else to say to ye. */
++@150 /* Are ye deaf, <PRO_GIRLBOY>? I've got nothing else to say to ye. */
+ EXIT
+ 
+ CHAIN IF ~GlobalGT("rh#AlimTalks","GLOBAL",1) PartyHasItem("rh#ale")~ THEN RH#ALIM q13.4

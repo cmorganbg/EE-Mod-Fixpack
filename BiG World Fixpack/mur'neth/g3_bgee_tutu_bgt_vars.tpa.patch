@@ -1,0 +1,49 @@
+--- mur'neth\lib\g3_bgee_tutu_bgt_vars.tpa	Sat Dec 21 13:20:15 2013
++++ C:\BWP Patchstudio\patched files\mur'neth\lib\g3_bgee_tutu_bgt_vars.tpa	Sat Dec 21 13:22:14 2013
+@@ -780,6 +780,46 @@
+         /* Items and Variables that need special handling */
+         OUTER_SPRINT "KICKED_OUT" "IWasKickedOut"
+         
++        ACTION_IF FILE_EXISTS ~BGT/Compat/BG1NPC/FluidStates.tpa~ THEN BEGIN
++          INCLUDE ~BGT/Compat/BG1NPC/FluidStates.tpa~  // BGT1.06 and higher
++        END ELSE BEGIN // BGT1.05 and lower
++          //BGT Dialogues always appended
++          OUTER_SET BGTBEDWINState0 = 106
++          OUTER_SET BGTBJAHEIState0 = 461
++          OUTER_SET BGTBMINSCState0 = 99
++          OUTER_SET BGTBVICONState0 = 575
++          OUTER_SET BGTEDWINState0 = 74
++          OUTER_SET BGTEDWINJState0 = 188
++          OUTER_SET BGTEDWINPState0 = 9
++          OUTER_SET BGTIMOENJState0 = 111
++          OUTER_SET BGTIMOEN2State0 = 26
++          OUTER_SET BGTIMOENPState0 = 16
++          OUTER_SET BGTJAHEIJState0 = 531
++          OUTER_SET BGTJAHEIPState0 = 74
++          OUTER_SET BGTMINSCJState0 = 241
++          OUTER_SET BGTMINSCPState0 = 10
++          OUTER_SET BGTVICONJState0 = 183
++          OUTER_SET BGTVICONPState0 = 14
++
++          //Never Ending Journey 2 compatibility appending
++          OUTER_SET BGTXANState0 = 0
++
++          //The Darkest Day compatibility appending
++          OUTER_SET BGTKAGAIPState0 = 0
++          OUTER_SET BGTKIVANPState0 = 0
++          OUTER_SET BGTSHARTPState0 = 0
++          OUTER_SET BGTXZARPState0 = 0
++          OUTER_SET BGTYESLIPState0 = 0
++
++          //Tortured Souls compatibility appending
++          OUTER_SET BGTBCORANState0 = 0
++          OUTER_SET BGTCORANState0 = 0
++          OUTER_SET BGTCORANJState0 = 0
++          OUTER_SET BGTCORANPState0 = 0
++          OUTER_SET BGTDYNAHJState0 = 0
++          OUTER_SET BGTDYNAHPState0 = 0
++        END
++        
+         //OUTER_SET BGTBEDWINState0, vanilla _BEDWIN = 15 states {0-15} //done
+         OUTER_FOR (cpv = 0; cpv < 16; cpv += 1) BEGIN
+           OUTER_SET EVALUATE_BUFFER ~BGTBEDWINState%cpv%~ = cpv + BGTBEDWINState0
