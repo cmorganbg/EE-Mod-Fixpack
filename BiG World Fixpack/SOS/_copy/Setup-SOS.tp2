@@ -2,7 +2,7 @@ BACKUP ~SOS/BACKUP~
 
 AUTHOR ~Charles Bisson, Horred The Plague (WeiDU), King Diamond (WeiDU revision), Weigo (WeiDU EE revision)~  NO_IF_EVAL_BUG
 
-VERSION ~1.14~
+VERSION ~1.14 patched~
 
 AUTO_TRA ~SOS/Language/%s~
 
