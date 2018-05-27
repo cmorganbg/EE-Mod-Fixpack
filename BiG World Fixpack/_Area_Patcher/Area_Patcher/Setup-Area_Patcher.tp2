@@ -257,20 +257,15 @@ BUT_ONLY_IF_IT_CHANGES
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-BEGIN ~Fix BG1NPC X#AJR1.ARE~ DESIGNATED 5000 GROUP ~BG1NPC~
+/*BEGIN ~Fix BG1NPC X#AJR1.ARE~ DESIGNATED 5000 GROUP ~BG1NPC~
 REQUIRE_COMPONENT ~setup-area_patcher.tp2~ 0 ~You must install the core component first.~
 REQUIRE_PREDICATE (MOD_IS_INSTALLED ~bg1npc.tp2~ 15 OR (FILE_EXISTS ~WeiDU-BGEE.log~ AND FILE_CONTAINS ~WeiDU-BGEE.log~ ~BG1NPC\.TP2. #[0-9]+ #15 ~)) ~This component is needed only if you have installed BG1NPC component 15.~
-
-//(REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~AR4230.ARE~)
 
 COPY_EXISTING ~X#AJR1.ARE~ ~override~
 
     WRITE_ASCII 0x0018 ~%NBaldursGate_RinniesHouse_L2%~ #8
-    WRITE_ASCII 0x0024 ~%NBaldursGate_RinniesHouse_L2%~ #8
-    WRITE_ASCII 0x0030 ~%NBaldursGate_RinniesHouse_L2%~ #8
-    WRITE_ASCII 0x003c ~%NBaldursGate_RinniesHouse_L2%~ #8
 
-BUT_ONLY_IF_IT_CHANGES
+BUT_ONLY_IF_IT_CHANGES*/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -281,20 +276,15 @@ BUT_ONLY_IF_IT_CHANGES
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-BEGIN ~Fix BG1NPC X#CH11.ARE~ DESIGNATED 5001 GROUP ~BG1NPC~
+/*BEGIN ~Fix BG1NPC X#CH11.ARE~ DESIGNATED 5001 GROUP ~BG1NPC~
 REQUIRE_COMPONENT ~setup-area_patcher.tp2~ 0 ~You must install the core component first.~
 REQUIRE_PREDICATE (MOD_IS_INSTALLED ~bg1npc.tp2~ 15 OR (FILE_EXISTS ~WeiDU-BGEE.log~ AND FILE_CONTAINS ~WeiDU-BGEE.log~ ~BG1NPC\.TP2. #[0-9]+ #15 ~)) ~This component is needed only if you have installed BG1NPC component 15.~
-
-//(REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~AR4230.ARE~)
 
 COPY_EXISTING ~X#CH11.ARE~ ~override~
 
     WRITE_ASCII 0x0018 ~%NBaldursGate_RinniesHouse_L2%~ #8
-    WRITE_ASCII 0x0024 ~%NBaldursGate_RinniesHouse_L2%~ #8
-    WRITE_ASCII 0x0030 ~%NBaldursGate_RinniesHouse_L2%~ #8
-    WRITE_ASCII 0x003c ~%NBaldursGate_RinniesHouse_L2%~ #8
 
-BUT_ONLY_IF_IT_CHANGES
+BUT_ONLY_IF_IT_CHANGES*/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
