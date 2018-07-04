@@ -74,6 +74,12 @@ COPY_EXISTING ~SPWI618.SPL~ ~spell_rev/eespells~
 COPY_EXISTING ~SPWI701.SPL~ ~spell_rev/eespells~
 COPY_EXISTING ~SPWI802.SPL~ ~spell_rev/eespells~
 COPY_EXISTING ~SPWI902.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPIN710.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPIN920.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPPR701.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPRA302.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPWI318.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPWI519.SPL~ ~spell_rev/eespells~
 
 ACTION_IF GAME_IS ~eet bg2ee~ BEGIN
 COPY_EXISTING ~staf11.SPL~ ~spell_rev/eespells~
@@ -82,12 +88,7 @@ COPY_EXISTING ~DGARCHON.SPL~ ~spell_rev/eespells~
 COPY_EXISTING ~Rods01.itm~ ~spell_rev/eespells~
 END
 
-COPY ~spell_rev/eedummy~ ~override~COPY_EXISTING ~SPIN710.SPL~ ~spell_rev/eespells~
-COPY_EXISTING ~SPIN920.SPL~ ~spell_rev/eespells~
-COPY_EXISTING ~SPPR701.SPL~ ~spell_rev/eespells~
-COPY_EXISTING ~SPRA302.SPL~ ~spell_rev/eespells~
-COPY_EXISTING ~SPWI318.SPL~ ~spell_rev/eespells~
-COPY_EXISTING ~SPWI519.SPL~ ~spell_rev/eespells~
+COPY ~spell_rev/eedummy~ ~override~
 
 // ToBEx
 ACTION_IF install_tobex && (ENGINE_IS ~tob~) BEGIN
