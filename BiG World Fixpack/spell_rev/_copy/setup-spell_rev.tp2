@@ -162,7 +162,30 @@ BEGIN @9991
 DESIGNATED 30
 REQUIRE_PREDICATE (ENGINE_IS ~soa tob bgee bg2ee~) @8996 // ~This mod is designed for the Baldur's Gate II engine and will not function on other games.~
 
+COPY_EXISTING ~SPWI522.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPWI618.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPWI701.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPWI802.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPWI902.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPIN710.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPIN920.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPPR701.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPRA302.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPWI318.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~SPWI519.SPL~ ~spell_rev/eespells~
+
+ACTION_IF GAME_IS ~eet bg2ee~ BEGIN
+COPY_EXISTING ~staf11.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~BTEST1.ITM~ ~spell_rev/eespells~
+COPY_EXISTING ~DGARCHON.SPL~ ~spell_rev/eespells~
+COPY_EXISTING ~Rods01.itm~ ~spell_rev/eespells~
+END
+
+COPY ~spell_rev/eedummy~ ~override~
+
 INCLUDE ~spell_rev/components/dispellable_items.tpa~
+
+COPY ~spell_rev/eespells~ ~override~
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\\\
 ////\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
