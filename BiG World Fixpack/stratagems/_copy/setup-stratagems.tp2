@@ -1209,10 +1209,14 @@ LAF run STR_VAR files=protect_sharteel END
 BEGIN @16024 DESIGNATED 5900 GROUP @6
 REQUIRE_PREDICATE FILE_EXISTS ~override/dw#setup.mrk~ @8
 
+COPY ~stratagems/eedummy~ ~override~
+
 LAF make_label STR_VAR label=dw#AIsetup END
 
 OUTER_SPRINT component_loc caster_shared
 LAF run STR_VAR files=initialise END
+
+COPY ~stratagems/eespells~ ~override~
 
 ///////////////////////////////////////////////////////////////////////////////
 //Improved General AI
