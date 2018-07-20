@@ -1308,45 +1308,66 @@ REQUIRE_PREDICATE FILE_EXISTS ~override/dw#setup.mrk~ @8
 REQUIRE_PREDICATE FILE_EXISTS ~override/dw#AIsetup.mrk~ @16025
 REQUIRE_PREDICATE FILE_EXISTS ~override/dw#genai.mrk~ @3350
 
+COPY ~stratagems/eedummy~ ~override~
+
 LAF make_label STR_VAR label=dw#mage END
 
 OUTER_SPRINT component_loc mage
 LAF run STR_VAR files=mage version=1 END
 
+COPY ~stratagems/eespells~ ~override~
+
 //////////////////////////////////////////////////////////////////////////////////
 
 BEGIN @82 DESIGNATED 6031 GROUP @6 SUBCOMPONENT @80
+
+COPY ~stratagems/eedummy~ ~override~
 
 LAF make_label STR_VAR label=dw#mage END
 
 OUTER_SPRINT component_loc mage
 LAF run STR_VAR files=mage version=2 END
 
+COPY ~stratagems/eespells~ ~override~
+
 //////////////////////////////////////////////////////////////////////////////////
 
 BEGIN @83 DESIGNATED 6032 GROUP @6 SUBCOMPONENT @80
+
+COPY ~stratagems/eedummy~ ~override~
 
 LAF make_label STR_VAR label=dw#mage END
 
 OUTER_SPRINT component_loc mage
 LAF run STR_VAR files=mage version=3 END
 
+COPY ~stratagems/eespells~ ~override~
+
 //////////////////////////////////////////////////////////////////////////////////
 
 BEGIN @16013 DESIGNATED 6033 GROUP @6 SUBCOMPONENT @80
+
+COPY ~stratagems/eedummy~ ~override~
 
 LAF make_label STR_VAR label=dw#mage END
 
 OUTER_SPRINT component_loc mage
 LAF run STR_VAR files=mage version=4 END
 
+COPY ~stratagems/eespells~ ~override~
+
 //////////////////////////////////////////////////////////////////////////////////
 
 BEGIN @16015 DESIGNATED 6034 GROUP @6 SUBCOMPONENT @80
+
+COPY ~stratagems/eedummy~ ~override~
+
 LAF make_label STR_VAR label=dw#mage END
 
 OUTER_SPRINT component_loc mage
 LAF run STR_VAR files=mage version=5 END
+
+COPY ~stratagems/eespells~ ~override~
 
 
 ///////////////////////////////////////////////////////////////////////////////
