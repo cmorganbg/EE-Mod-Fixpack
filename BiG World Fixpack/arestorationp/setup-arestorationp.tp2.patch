@@ -2,7 +2,7 @@
 +++ C:\BWP Patchstudio\patched files\arestorationp\setup-arestorationp.tp2	Thu Nov 03 08:55:48 2016
 @@ -1,6 +1,6 @@
  BACKUP ~arestorationp/backup~
- AUTHOR ~Almateria (sylwiabukato@gmail.com)~
+ AUTHOR ~Almateria (bukato@icloud.com)~
 -VERSION ~v8.2.9~
 +VERSION ~v8.2.9 EE Fix~
  README "arestorationp/language/%LANGUAGE%/readme.html" "arestorationp/language/english/readme.html"
