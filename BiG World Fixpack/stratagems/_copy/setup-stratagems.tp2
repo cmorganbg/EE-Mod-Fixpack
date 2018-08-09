@@ -698,6 +698,10 @@ LAF run STR_VAR files=~fast_bears~ END
 BEGIN @221 DESIGNATED 4010 GROUP @4
 REQUIRE_PREDICATE FILE_EXISTS ~override/dw#setup.mrk~ @8
 
+ACTION_IF FILE_EXISTS_IN_GAME ~sshamb.cre~ THEN BEGIN
+COPY_EXISTING ~Ghastsu.cre~ ~override/sshamb.cre~
+END
+
 LAF make_label STR_VAR label=dw#web_large END
 
 OUTER_SPRINT component_loc gameplay
