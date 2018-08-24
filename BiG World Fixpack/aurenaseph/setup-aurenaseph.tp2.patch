@@ -5,7 +5,7 @@
  AUTO_TRA ~AurenAseph\%s~
  
 -VERSION v8
-+VERSION ~v8 BWP FIX~
++VERSION ~v8 EE Patch~
 +
 +ALWAYS
 +  ACTION_IF GAME_IS ~eet~ BEGIN
