@@ -1,0 +1,340 @@
+BACKUP ~WilsonChronicles/backup~
+AUTHOR ~Lava Del'Vortel~
+README ~WilsonChronicles/WilsonChroniclesReadme-%LANGUAGE%.txt~ ~WilsonChronicles/WilsonChroniclesReadme-English.txt~
+
+VERSION ~1.4.2 EE Fixed~
+
+AUTO_TRA ~WilsonChronicles/tra/%s~
+
+
+
+LANGUAGE   ~English~
+           ~English~
+           ~WilsonChronicles/tra/English/setup.tra~
+           ~WilsonChronicles/tra/English/WilsonChronicles.tra~
+
+LANGUAGE   ~Polish (by Stars of Mystra)~
+           ~Polish~
+           ~WilsonChronicles/tra/Polish/setup.tra~
+           ~WilsonChronicles/tra/Polish/WilsonChronicles.tra~
+
+BEGIN @100
+REQUIRE_PREDICATE GAME_IS ~bg2ee eet~ @0
+
+LAF HANDLE_AUDIO END
+
+////////////////////////////////////////
+/////////JOURNAL ENTRIES////////////////
+////////////////////////////////////////
+
+ADD_JOURNAL @75100 @75101 @75102 @75103 @75104 @75105 @75106 @75122 @75175 @75180 // Quest 1
+            @75200 @75201                                                         // Quest 2
+            @75300 @75301 @75302                                                  // Quest 3
+            USING ~WilsonChronicles/tra/%LANGUAGE%/journal.tra~
+
+//////////////////////////////////////////////////////////////////////////////////
+////WILSON DOESN'T HAVE A BANTER FILE - THAT MAKES HIM SAD! LET'S CHANGE THAT!////
+//////////////////////////////////////////////////////////////////////////////////
+
+PRINT ~Wilson interdia.2da append - set Wilson's banter file (BWILSON & BWILSO25)~
+
+APPEND ~interdia.2da~ ~WILSON BWILSON BWILSO25~
+               UNLESS ~WILSON~
+
+COPY_EXISTING ~pdialog.2da~ ~override~
+  REPLACE_TEXTUALLY ~^[ %TAB%]*WILSON[ %TAB%].+$~
+                    ~WILSON                 WILSONP                WILSONJ                WILSOND                WILSO25P               WILSO25J               WILSO25D               WILSON25~
+BUT_ONLY
+
+ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSON.dlg~) THEN BEGIN
+  COMPILE ~WilsonChronicles/d/blank/BWILSON.d~
+END
+
+ACTION_IF NOT (FILE_EXISTS_IN_GAME ~BWILSO25.dlg~) THEN BEGIN
+  COMPILE ~WilsonChronicles/d/blank/BWILSO25.d~
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+////WILSON DOESN'T HAVE A SLEEP SCRIPT - THAT MAKES HIM SAD, TOO! CHANGE THAT!////
+//////////////////////////////////////////////////////////////////////////////////
+
+ACTION_IF NOT (FILE_EXISTS_IN_GAME ~WilsonD.bcs~) THEN BEGIN
+  PRINT ~Wilson has no sleep script? That must be changed!~
+  COMPILE ~WilsonChronicles/baf/blank/wilsond.baf~
+END
+
+//////////////////////////////////////////////////////////////////////////////////
+////TOB WILSON DOESN'T HAVE AN OVERRIDE SCRIPT - THAT MAKES HIM SAD, TOO! ////////
+//////////////////////////////////////////////////////////////////////////////////
+
+ACTION_IF NOT (FILE_EXISTS_IN_GAME ~Wilson25.bcs~) THEN BEGIN
+  PRINT ~Wilson has no ToB override script? That must be changed!~
+  COMPILE ~WilsonChronicles/baf/blank/wilson25.baf~
+END
+
+COPY_EXISTING ~Wilson13.cre~ ~override~ // Wilson version summoned by Fate Spirit in new ToB game (this version will NOT be summoned in EET if Wilson was with the party in SoA)
+  WRITE_EVALUATED_ASCII DIALOG          ~WILSON25~ #8
+  WRITE_EVALUATED_ASCII SCRIPT_OVERRIDE ~WILSON25~ #8
+  ADD_CRE_ITEM ~L#wilroc~ #1 #0 #0 ~identified~ ~qitem~ // missed quest reward from SoA
+
+//////////////////////////////////////////TOB FATE SPIRIT
+//////////////////////////////////////////
+
+ACTION_IF GAME_IS ~eet~ THEN BEGIN
+
+  INCLUDE ~EET/other/EET_functions.tph~
+
+  LAF ~EET_NPC_TRANSITION~
+    INT_VAR
+      type = 2 // 2 - BG2 NPC without BG1 content (transition to ToB if joined the party at least once during SoA)
+      clean_tob = 1 // remove EET's original Wilson transition; use our new ToB script and dialogue files instead
+      default_tob = 1 // controls if NPC should be spawnable in ToB when the game has been started in ToB (no by default - 0)
+    STR_VAR
+      clean_tob_dv = "WILSON" // cleans out existing EET code in FATESP.DLG, AR4000.BCS, AR4500.BCS for this DV
+      dv = "WILSON" // no change
+      override_SoA = "WILSON" // no change
+      override_ToB = "WILSON25" // added by this mod
+      dialog_ToB = "WILSON25" // added by this mod
+      string = "#87156" /* Bring me Wilson, the bear paragon. */
+      SummonedVar = "OHR_WilsonSummoned" // no change - original game variable
+      SpawnPlaneVar = "OHR_WilsonSpawnPlane" // no change - original game variable
+      cre_ToB = "WILSON13" // if type = 4 and/or default_ToB = 1, this CRE can be created by Fate Spirit summon if did not join the party during SoA
+  END
+END ELSE BEGIN
+  EXTEND_BOTTOM ~AR4500.bcs~   ~WilsonChronicles/baf/AR4500.baf~ // set OHR_Wilson_Plot to 1 upon first entering Pocket Plane (enables Fate Spirit summoning, as if Wilson was with the party in SoA)
+END
+
+////////////////////////////////////////
+/////////RACE///////////////////////////
+////////////////////////////////////////
+
+OUTER_SET bear_lcase = RESOLVE_STR_REF(~bear~)
+OUTER_SET bear_ucase = RESOLVE_STR_REF(~Bear~)
+APPEND ~racetext.2da~ ~BEAR   103        %bear_lcase%       -1         %bear_ucase%          -1~
+               UNLESS ~BEAR~
+
+////////////////////////////////////////
+/////////ITEM USABILITY/////////////////
+////////////////////////////////////////
+
+COPY_EXISTING ~ohrbear1.spl~ ~override~ // modify passive effects of Wilson's Grizzly Bear kit
+  LPF DELETE_EFFECT INT_VAR multi_match = 1 match_opcode = 181 match_parameter1 = 0 END // remove "can't equip miscellaneous items" restriction
+  LPF DELETE_EFFECT INT_VAR multi_match = 1 match_opcode = 181 match_parameter1 = 1 END // remove "can't equip necklaces or amulets" restriction
+BUT_ONLY
+
+ACTION_GET_STRREF 86479 wilson_kitdesc // read Wilson's original kit description
+OUTER_SPRINT oldtext @105
+OUTER_SPRINT newtext @106
+OUTER_INNER_PATCH_SAVE wilson_kitdesc_modified ~%wilson_kitdesc%~ BEGIN // revise the item usability restriction line
+  REPLACE_TEXTUALLY CASE_SENSITIVE EXACT_MATCH ~%oldtext%~ ~%newtext%~
+END
+STRING_SET_EVALUATE 86479 ~%wilson_kitdesc_modified%~ // save the modified kit description
+
+////////////////////////////////////////
+/////////ICONS and ANIMATIONS///////////
+////////////////////////////////////////
+
+COPY ~WilsonChronicles/bam~ ~override~
+
+////////////////////////////////////////
+/////////NEW AREAS//////////////////////
+////////////////////////////////////////
+
+COPY ~WilsonChronicles/are~ ~override~
+
+////////////////////////////////////////
+/////////CREATURES//////////////////////
+////////////////////////////////////////
+
+COPY ~WilsonChronicles/cre/L#wilphe.cre~ ~override~
+  SAY NAME1 @5000011
+  SAY NAME2 @5000011
+
+COPY ~WilsonChronicles/cre/L#wilbro.cre~ ~override~
+  SAY NAME1 @5000012
+  SAY NAME2 @5000012
+
+COPY ~WilsonChronicles/cre/L#wilran.cre~ ~override~
+  SAY NAME1 @5000013
+  SAY NAME2 @5000013
+
+COPY ~WilsonChronicles/cre/L#wilwis.cre~ ~override~
+  SAY NAME1 @5000014
+  SAY NAME2 @5000014
+
+COPY ~WilsonChronicles/cre/L#wildra.cre~ ~override~
+  SAY NAME1 @5000015
+  SAY NAME2 @5000015
+
+COPY ~WilsonChronicles/cre/L#wilbug.cre~ ~override~
+  SAY NAME1 @5000016
+  SAY NAME2 @5000016
+
+COPY ~WilsonChronicles/cre/L#wilsq.cre~ ~override~
+  SAY NAME1 @5000017
+  SAY NAME2 @5000017
+
+COPY ~WilsonChronicles/cre/L#wilduc.cre~ ~override~
+  SAY NAME1 @5000018
+  SAY NAME2 @5000018
+
+COPY ~WilsonChronicles/cre/L#wilbcd.cre~ ~override~
+  SAY NAME1 @5000020
+  SAY NAME2 @5000020
+
+////////////////////////////////////////
+/////////ITEMS//////////////////////////
+////////////////////////////////////////
+
+COPY ~WilsonChronicles/itm/L#wilboo.itm~ ~override~
+  SAY NAME1 @5000021
+  SAY NAME2 @5000021
+  SAY DESC @5000022
+
+  
+COPY ~WilsonChronicles/itm/L#wilbra.itm~ ~override~
+  SAY NAME1 @5000023
+  SAY NAME2 @5000024
+  SAY DESC @5000025
+
+
+COPY ~WilsonChronicles/itm/L#wilshl.itm~ ~override~
+  SAY NAME1 @5000026
+  SAY NAME2 @5000026
+  SAY DESC @5000027
+
+
+COPY ~WilsonChronicles/itm/L#wilroc.itm~ ~override~
+  SAY NAME1 @5000028
+  SAY NAME2 @5000029
+  SAY DESC @5000030
+
+
+COPY ~WilsonChronicles/itm/L#wilamu.itm~ ~override~
+  SAY NAME1 @5000031
+  SAY NAME2 @5000032
+  SAY DESC @5000033
+
+
+COPY ~WilsonChronicles/itm/L#wilcla.itm~ ~override~
+  SAY NAME1 @5000034
+  SAY NAME2 @5000035
+  SAY DESC @5000036
+
+
+COPY ~WilsonChronicles/itm/L#wilscl.itm~ ~override~
+  SAY NAME1 @5000037
+  SAY NAME2 @5000037
+  SAY DESC @5000038
+
+
+COPY ~WilsonChronicles/itm/L#wilarm.itm~ ~override~
+  SAY NAME1 @5000039
+  SAY NAME2 @5000039
+  SAY DESC @5000040
+
+
+COPY ~WilsonChronicles/itm/L#wilfsh.itm~ ~override~
+  SAY NAME1 @5000041
+  SAY NAME2 @5000042
+  SAY DESC @5000043
+
+//////////////////////////////////////////////////////////
+/////////ADD FISH TO STORES///////////////////////////////
+//////////////////////////////////////////////////////////
+
+COPY_EXISTING ~shop01.sto~  ~override~ // Mira in Athkatla Promenade (AR0700)
+              ~ppumb01.sto~ ~override~ // Temple of Umberlee in Brynnlaw (AR1604)
+              ~hgkar01.sto~ ~override~ // Karthis al-Hezzar in ToB North Forest (AR6400)
+  ADD_STORE_ITEM "L#WILFSH" #0 #0 #0 ~identified&unstealable~ #1
+
+COPY_EXISTING ~shop01.cre~ ~override~ // vanilla patch:  Mira doesn't have a script name
+  WRITE_ASCII DEATHVAR ~SHOP01~ #8
+BUT_ONLY
+
+////////////////////////////////////////
+/////////ABILITIES//////////////////////
+////////////////////////////////////////
+
+COPY ~WilsonChronicles/spl/L#wilgaz.spl~ ~override~
+  SAY NAME1 @5000044
+  SAY NAME2 @5000044
+  SAY UNIDENTIFIED_DESC @5000045
+  SAY IDENTIFIED_DESC @5000045
+
+COPY ~WilsonChronicles/spl/L#WILSUM.EFF~ ~override~
+
+COPY ~WilsonChronicles/spl/L#wilsum.spl~ ~override~
+  SAY NAME1 @5000046
+  SAY NAME2 @5000046
+  SAY UNIDENTIFIED_DESC @5000047
+  SAY IDENTIFIED_DESC @5000047
+ 
+////////////////////////////////////////
+/////////DIALOGUES//////////////////////
+////////////////////////////////////////
+
+COMPILE EVALUATE_BUFFER
+// SOA
+        ~WilsonChronicles/d/wilsonj.d~
+        ~WilsonChronicles/d/bwilson.d~
+        ~WilsonChronicles/d/interj.d~
+        ~WilsonChronicles/d/quest.d~
+        ~WilsonChronicles/d/quest2.d~
+        ~WilsonChronicles/d/cromwell.d~
+// TOB
+        ~WilsonChronicles/d/wilson25.d~
+        ~WilsonChronicles/d/wilso25j.d~
+        ~WilsonChronicles/d/bwilso25.d~
+        ~WilsonChronicles/d/quest3.d~
+        ~WilsonChronicles/d/cespenar.d~
+  USING ~WilsonChronicles/tra/%LANGUAGE%/journal.tra~
+
+////////////////////////////////////////
+/////////SCRIPTS////////////////////////
+////////////////////////////////////////
+
+COMPILE EVALUATE_BUFFER
+// SOA - Quest 1
+        ~WilsonChronicles/baf/L#wilc1.baf~
+        ~WilsonChronicles/baf/ARWILS.baf~
+// TOB - Quest 3
+        ~WilsonChronicles/baf/L#wilc2.baf~
+        ~WilsonChronicles/baf/L#wilc3.baf~
+        ~WilsonChronicles/baf/ARWIL2.baf~
+  USING ~WilsonChronicles/tra/%LANGUAGE%/journal.tra~
+  
+// SOA
+EXTEND_BOTTOM ~wilsond.bcs~  ~WilsonChronicles/baf/wilsond_append.baf~ EVALUATE_BUFFER // evaluate in case we add chapter checks in the future
+
+EXTEND_BOTTOM ~wilson.bcs~   ~WilsonChronicles/baf/wilson_append.baf~  EVALUATE_BUFFER // evaluate in case we add chapter checks in the future
+  USING ~WilsonChronicles/tra/%LANGUAGE%/journal.tra~
+
+// QUEST 1
+EXTEND_BOTTOM ~AR1100.bcs~   ~WilsonChronicles/baf/AR1100.baf~ // spawn L#WilBRO, L#WilRAN, L#WilSQ when WilsonChroniclesQuest = 2, 4, 8 respectively
+  USING ~WilsonChronicles/tra/%LANGUAGE%/journal.tra~
+
+EXTEND_BOTTOM ~AR1104.bcs~   ~WilsonChronicles/baf/AR1104.baf~ // place book L#wilboo in container in Imnesvale mayor's house
+
+EXTEND_BOTTOM ~AR0334.bcs~   ~WilsonChronicles/baf/AR0334.baf~ // Cromwell crafting finished - give item L#wilbra
+  USING ~WilsonChronicles/tra/%LANGUAGE%/journal.tra~
+
+// QUEST 2
+
+EXTEND_BOTTOM ~AR0404.bcs~   ~WilsonChronicles/baf/ducklings/AR0404.baf~ // Spawn Corrupted Ducklings in Sewers beneath Coronet
+EXTEND_BOTTOM ~AR0701.bcs~   ~WilsonChronicles/baf/ducklings/AR0701.baf~ // Spawn Corrupted Ducklings in Sewers
+EXTEND_BOTTOM ~AR0802.bcs~   ~WilsonChronicles/baf/ducklings/AR0802.baf~ // Spawn Corrupted Ducklings in Graveyard Tomb
+EXTEND_BOTTOM ~AR1202.bcs~   ~WilsonChronicles/baf/ducklings/AR1202.baf~ // Spawn Corrupted Ducklings in Firkraag's Maze
+EXTEND_BOTTOM ~AR1514.bcs~   ~WilsonChronicles/baf/ducklings/AR1514.baf~ // Spawn Corrupted Ducklings in Bodhi's Lair
+EXTEND_BOTTOM ~AR2100.bcs~   ~WilsonChronicles/baf/ducklings/AR2100.baf~ // Spawn Corrupted Ducklings in Underdark
+EXTEND_BOTTOM ~AR0204.bcs~   ~WilsonChronicles/baf/ducklings/AR0204.baf~ // Spawn Corrupted Ducklings in Amaunator Temple Exterior
+
+// TOB
+EXTEND_BOTTOM ~wilson25.bcs~ ~WilsonChronicles/baf/wilson25_append.baf~ EVALUATE_BUFFER // evaluate in case we add chapter checks in the future
+
+EXTEND_BOTTOM ~botsmith.bcs~ ~WilsonChronicles/baf/botsmith_append.baf~ // Cespenar crafting finished - give item L#wilarm
+  USING ~WilsonChronicles/tra/%LANGUAGE%/journal.tra~
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
