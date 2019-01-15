@@ -33,41 +33,6 @@ ACTION_FOR_EACH item IN ~aeriebab~ ~clck18~ ~clck19~ ~golstone~ ~shld18~ ~sw2h05
   END
 END
 
-//BP Items
-BEGIN ~Gives some Big Picture items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~BP Items~
-DESIGNATED 101
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~finipotn~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
-
-//CtB Items
-BEGIN ~Gives some CtB items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~CtB Items~
-DESIGNATED 102
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~cbmalmge~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
 
 ///Huple Items
 BEGIN ~Gives some Huple items the Droppable Flag~
@@ -177,24 +142,6 @@ ACTION_FOR_EACH item IN ~eu#lefft~ BEGIN
   END
 END
 
-///Les Exiles de Lunargent Items
-BEGIN ~Gives some Les Exiles de Lunargent items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~Les Exiles de Lunargent Items~
-DESIGNATED 109
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~#vsku1~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
-
 ///Ninde Items
 BEGIN ~Gives some Ninde items the Droppable Flag~
 REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
@@ -205,42 +152,6 @@ ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
 END
 
 ACTION_FOR_EACH item IN ~lk#nankh~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
-
-///Skie ReDone Items
-BEGIN ~Gives some Skie ReDone items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~Skie ReDone Items~
-DESIGNATED 111
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~skieba~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
-
-///TDD Items
-BEGIN ~Gives some TDD items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~TDD Items~
-DESIGNATED 112
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~lv16rob~ BEGIN
   ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
     COPY_EXISTING ~%item%.itm~ ~override~ //
         READ_BYTE 0x18 "flags"
@@ -267,59 +178,6 @@ ACTION_FOR_EACH item IN ~tafamil~ BEGIN
   END
 END
 
-///TDD sin TDD Items
-BEGIN ~Gives some TDD sin TDD items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~TDD sin TDD Items~
-DESIGNATED 114
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~hammraid~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
-
-///TS Items
-BEGIN ~Gives some TS items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~TS Items~
-DESIGNATED 115
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~helmsun~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
-
-///Avi Maya Items
-BEGIN ~Gives some Avi Maya items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~Avi Maya Items~
-DESIGNATED 116
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~avii1~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
 
 ///Aeon Items
 BEGIN ~Gives some Aeon items the Droppable Flag~
@@ -375,20 +233,3 @@ ACTION_FOR_EACH item IN ~ADLeath~ BEGIN
   END
 END
 
-///AC Breagar Items
-BEGIN ~Gives some Breagar items the Droppable Flag~
-REQUIRE_COMPONENT ~setup-item_patcher.tp2~ 0 ~You must install the dummy component before any other thing.~
-GROUP ~Breagar Items~
-DESIGNATED 120
-ACTION_IF NOT (MOD_IS_INSTALLED ~Setup-Item_Patcher.tp2~ 0) BEGIN
-  FAIL ~Item Patcher dummy component is required to install this component.~
-END
-
-ACTION_FOR_EACH item IN ~achand1~ ~achand1a~ ~achand3~ ~achand3a~ ~achand3b~ ~achand4~ BEGIN
-  ACTION_IF FILE_EXISTS_IN_GAME ~%item%.itm~ BEGIN
-    COPY_EXISTING ~%item%.itm~ ~override~ //
-        READ_BYTE 0x18 "flags"
-        WRITE_BYTE "0x18" ("%flags%" BOR "0b00000100") // droppable flag
-    BUT_ONLY_IF_IT_CHANGES
-  END
-END
